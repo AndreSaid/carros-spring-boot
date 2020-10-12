@@ -38,6 +38,11 @@ public class CarroService {
 		return repo.findByTipo(tipo);//pega carros por Tipo;
 	}
 
+	public Carro save(Carro carro) {
+		return repo.save(carro);//salva um novo carro
+		
+	}
+
 
 
 
