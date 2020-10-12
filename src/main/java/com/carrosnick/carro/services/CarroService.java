@@ -17,11 +17,11 @@ public class CarroService {
 	private CarroRepository repo;
 
 	public Iterable<Carro> getCarros() {
-		return repo.findAll();
+		return repo.findAll();//acha todos os carros;
 	}
 	
 	public Optional<Carro> getCarrosById(Long id) {
-		return repo.findById(id);
+		return repo.findById(id);//acha carros por Id;
 	}
 	
 	public List<Carro> getCarrosfake() {
@@ -32,6 +32,10 @@ public class CarroService {
 		carros.add(new Carro(null, "Chevette"));
 
 		return carros;
+	}
+
+	public Iterable<Carro> getCarrosByTipo(String tipo) {
+		return repo.findByTipo(tipo);//pega carros por Tipo;
 	}
 
 
