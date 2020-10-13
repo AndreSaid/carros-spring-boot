@@ -1,5 +1,6 @@
 package com.carrosnick.carro.api;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +51,12 @@ public class CarrosController {
 	}
 	
 	@GetMapping("/tipo/{tipo}") //busca carro por tipo
-	public Iterable<Carro> getCarrosByTipo(@PathVariable ("tipo")String tipo) {
-		return service.getCarrosByTipo(tipo);
+	public ResponseEntity<?> getCarrosByTipo(@PathVariable ("tipo")String tipo) {
+		List<Carro> carros = service.getCarrosByTipo(tipo);
+		
+		return carros.isEmpty() ?
+				ResponseEntity.noContent().build() :
+				ResponseEntity.ok(carros);
 	}	
 	
 	@PostMapping //salva um novo carro

@@ -35,7 +35,7 @@ public class CarroService {
 		return carros;
 	}
 
-	public Iterable<Carro> getCarrosByTipo(String tipo) {
+	public List<Carro> getCarrosByTipo(String tipo) {
 		return repo.findByTipo(tipo);//pega carros por Tipo;
 	}
 
@@ -64,8 +64,6 @@ public class CarroService {
 			throw new RuntimeException("Não foi possível atualizar o registro");
 		}
 	}
-
-	
 	
 //	getCarroById(id).map(db ->{ //metodo atualizar com lambda
 //		//Copiar as propriedades
