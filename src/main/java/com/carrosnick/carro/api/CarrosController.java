@@ -30,8 +30,23 @@ public class CarrosController {
 	}
 	
 	@GetMapping("/{id}") //busca carro por id
-	public Optional<Carro> get(@PathVariable ("id")Long id) {
-		return service.getCarrosById(id);
+	public ResponseEntity<Carro> get(@PathVariable ("id")Long id) {
+		 Optional<Carro>carro = service.getCarrosById(id);
+		 
+		 return carro
+				 .map(ResponseEntity::ok)//Usando lambdas
+				 .orElse(ResponseEntity.notFound().build());
+		 
+//		 return carro.isPresent() ? //Usando o if ternario
+//				ResponseEntity.ok(carro.get()):
+//				ResponseEntity.notFound().build();
+		 
+		 
+		 //		 if(carro.isPresent()) {
+//			 return ResponseEntity.ok(carro.get());
+//		 }else {
+//			 return ResponseEntity.notFound().build();
+//		 }
 	}
 	
 	@GetMapping("/tipo/{tipo}") //busca carro por tipo
