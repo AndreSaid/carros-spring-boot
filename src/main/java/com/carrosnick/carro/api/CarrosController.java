@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.carrosnick.carro.domain.Carro;
+import com.carrosnick.carro.domain.dto.CarroDTO;
 import com.carrosnick.carro.services.CarroService;
 
 @RestController
@@ -25,7 +26,7 @@ public class CarrosController {
 	private CarroService service;
 
 	@GetMapping() //busca toda a lista de carros
-	public ResponseEntity<Iterable<Carro>> get() {
+	public ResponseEntity<List<CarroDTO>> get() {
 		return ResponseEntity.ok(service.getCarros());
 		//return new ResponseEntity<>(service.getCarros(), HttpStatus.OK);
 	}
@@ -51,8 +52,8 @@ public class CarrosController {
 	}
 	
 	@GetMapping("/tipo/{tipo}") //busca carro por tipo
-	public ResponseEntity<?> getCarrosByTipo(@PathVariable ("tipo")String tipo) {
-		List<Carro> carros = service.getCarrosByTipo(tipo);
+	public ResponseEntity getCarrosByTipo(@PathVariable ("tipo")String tipo) {
+		List<CarroDTO> carros = service.getCarrosByTipo(tipo);
 		
 		return carros.isEmpty() ?
 				ResponseEntity.noContent().build() :

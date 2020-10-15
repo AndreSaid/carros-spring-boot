@@ -3,12 +3,14 @@ package com.carrosnick.carro.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.carrosnick.carro.domain.Carro;
+import com.carrosnick.carro.domain.dto.CarroDTO;
 import com.carrosnick.carro.repository.CarroRepository;
 
 @Service
@@ -17,8 +19,16 @@ public class CarroService {
 	@Autowired
 	private CarroRepository repo;
 
-	public Iterable<Carro> getCarros() {
-		return repo.findAll();//acha todos os carros;
+	public List<CarroDTO> getCarros() {
+		List<Carro> carros = repo.findAll();
+		//lambdas
+		return repo.findAll().stream().map(CarroDTO::new).collect(Collectors.toList());
+		
+//		List<CarroDTO> list = new ArrayList<>();
+//		for (Carro c : carros) {
+//			list.add(new CarroDTO(c));
+//		}
+//		return list;//acha todos os carros;
 	}
 	
 	public Optional<Carro> getCarrosById(Long id) {
@@ -35,8 +45,8 @@ public class CarroService {
 		return carros;
 	}
 
-	public List<Carro> getCarrosByTipo(String tipo) {
-		return repo.findByTipo(tipo);//pega carros por Tipo;
+	public List<CarroDTO> getCarrosByTipo(String tipo) {
+		return repo.findByTipo(tipo).stream().map(CarroDTO::new).collect(Collectors.toList());//pega carros por Tipo;
 	}
 
 	public Carro insert(Carro carro) {
